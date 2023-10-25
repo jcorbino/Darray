@@ -26,6 +26,7 @@ int main()
 
     fragment.print();
 
+    // For local operations just:
     auto ptr = fragment.local_gptr.local();
     for(uint64_t i = 0; i < fragment.local_nelems; ++i)
         *(ptr + i) += 1;
