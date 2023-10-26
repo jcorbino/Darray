@@ -20,13 +20,12 @@ int main()
 
     real* buf;
     //dist_array.get_contig(0, 0, 0, 3, (real**)&stdvec);
-    dist_array.get_contig(0, 0, 0, 3, &buf, false);
+    dist_array.get_contig<false>(0, 0, 0, 3, &buf);
     //fragment.put_contig(0, 0, 1, 1, stdvec.data());
     fragment.put_contig(0, 0, 1, 1, buf);
 
     fragment.print();
 
-    // For local operations just:
     auto ptr = fragment.local_gptr.local();
     for(uint64_t i = 0; i < fragment.local_nelems; ++i)
         *(ptr + i) += 1;
@@ -38,7 +37,7 @@ int main()
     iota(values.begin(), values.end(), 1.0);
 
     // Chaining whole matrix operations:
-    dist_array.op<'+'>(values.data()).op<'*'>(values.data()); // <'='> by default
+    dist_array.op<'*'>(values.data()).op<'+'>(values.data()); // <'='> by default
 
     dist_array.print();
 
