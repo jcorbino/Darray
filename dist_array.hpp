@@ -13,7 +13,7 @@ struct Tile
 
     bool operator<(const Tile& other) const noexcept
     {
-        return (row_max < other.row_min || col_max < other.col_min) ? true : (row_min > other.row_max || col_min > other.col_max) ? false : false;
+        return row_max < other.row_min ? true : row_min > other.row_max ? false : col_max < other.col_min ? true : col_min > other.col_max ? false : false;
     }
 
     uint64_t row_min, col_min, row_max, col_max;
