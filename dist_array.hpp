@@ -193,18 +193,18 @@ struct Darray // 2D
         std::cout << std::endl;
     }
 
-    void print() const noexcept
+    void print(std::ostream& out = std::cout) const noexcept
     {
         if(!team.rank_me())
         {
-            std::vector<Real> values;
-            // Real* values;
+            std::vector<value_type> values;
+            // value_type* values;
 
             for(const auto& t : tiles)
             {
                 values.resize((t.first.row_max - t.first.row_min + 1) * (t.first.col_max - t.first.col_min + 1));
 
-                get_contig(t.first.row_min, t.first.col_min, t.first.row_max, t.first.col_max, (Real**)&values);
+                get_contig(t.first.row_min, t.first.col_min, t.first.row_max, t.first.col_max, (value_type**)&values);
                 // OR:
                 // get_contig<false>(t.first.row_min, t.first.col_min, t.first.row_max, t.first.col_max, &values);
 
@@ -212,7 +212,7 @@ struct Darray // 2D
 
                 for(uint64_t i = t.first.row_min; i <= t.first.row_max; ++i)
                     for(uint64_t j = t.first.col_min; j <= t.first.col_max; ++j)
-                        std::cout << '(' << i << ',' << j << ") -> " << std::fixed << values[k++] << std::endl;
+                        out << '(' << i << ',' << j << ") -> " << std::fixed << values[k++] << std::endl;
             }
         }
     }
