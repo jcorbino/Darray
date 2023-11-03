@@ -197,14 +197,14 @@ struct Darray // 2D
     {
         if(!team.rank_me())
         {
-            std::vector<value_type> values;
-            // value_type* values;
+            std::vector<Real> values;
+            // Real* values;
 
             for(const auto& t : tiles)
             {
                 values.resize((t.first.row_max - t.first.row_min + 1) * (t.first.col_max - t.first.col_min + 1));
 
-                get_contig(t.first.row_min, t.first.col_min, t.first.row_max, t.first.col_max, (value_type**)&values);
+                get_contig(t.first.row_min, t.first.col_min, t.first.row_max, t.first.col_max, (Real**)&values);
                 // OR:
                 // get_contig<false>(t.first.row_min, t.first.col_min, t.first.row_max, t.first.col_max, &values);
 
