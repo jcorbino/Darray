@@ -261,7 +261,8 @@ struct Darray // 2D
         return get_tile(ordinal);
     }
 
-    void add_contig(uint64_t row_min, uint64_t col_min, uint64_t row_max, uint64_t col_max, const Real* buf) const noexcept
+    // Elements in the target buffer are assumed to be contiguous
+    void add_contig(uint64_t row_min, uint64_t col_min, uint64_t row_max, uint64_t col_max, const Real* buf) noexcept
     {
         const auto& t = tiles.find({row_min, col_min, row_max, col_max});
 
