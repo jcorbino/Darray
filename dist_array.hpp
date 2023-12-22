@@ -75,7 +75,7 @@ struct Darray // 2D
 
         if(t != tiles.end())
         {
-            auto offset = (row_min - t->first.row_min) * (t->first.col_max - t->first.col_min + 1) + (col_min - t->first.col_min);
+            auto offset = (row_min - t->first.row_min) * (t->first.col_max - t->first.col_min + 1) + col_min - t->first.col_min;
             auto remote_addr = gptrs[t->second.first] + t->second.second + offset;
             auto count = (row_max - row_min + 1) * (col_max - col_min + 1);
 
@@ -97,7 +97,7 @@ struct Darray // 2D
 
         if(t != tiles.end())
         {
-            auto offset = (row_min - t->first.row_min) * (t->first.col_max - t->first.col_min + 1) + (col_min - t->first.col_min);
+            auto offset = (row_min - t->first.row_min) * (t->first.col_max - t->first.col_min + 1) + col_min - t->first.col_min;
             auto remote_addr = gptrs[t->second.first] + t->second.second + offset;
             auto count = (row_max - row_min + 1) * (col_max - col_min + 1);
 
@@ -119,7 +119,7 @@ struct Darray // 2D
             for(uint64_t j = col_min; j <= col_max; ++j)
             {
                 const auto& t = tiles.find({i, j, i, j});
-                auto offset = (i - t->first.row_min) * (t->first.col_max - t->first.col_min + 1) + (j - t->first.col_min);
+                auto offset = (i - t->first.row_min) * (t->first.col_max - t->first.col_min + 1) + j - t->first.col_min;
                 auto remote_addr = gptrs[t->second.first] + t->second.second + offset;
                 auto local_addr = buf + next++;
 
@@ -151,7 +151,7 @@ struct Darray // 2D
             for(uint64_t j = col_min; j <= col_max; ++j)
             {
                 const auto& t = tiles.find({i, j, i, j});
-                auto offset = (i - t->first.row_min) * (t->first.col_max - t->first.col_min + 1) + (j - t->first.col_min);
+                auto offset = (i - t->first.row_min) * (t->first.col_max - t->first.col_min + 1) + j - t->first.col_min;
                 auto remote_addr = gptrs[t->second.first] + t->second.second + offset;
                 auto local_addr = buf + next++;
 
@@ -268,7 +268,7 @@ struct Darray // 2D
 
         if(t != tiles.end())
         {
-            auto offset = t->second.second + (row_min - t->first.row_min) * (t->first.col_max - t->first.col_min + 1) + (col_min - t->first.col_min);
+            auto offset = t->second.second + (row_min - t->first.row_min) * (t->first.col_max - t->first.col_min + 1) + col_min - t->first.col_min;
             auto count = (row_max - row_min + 1) * (col_max - col_min + 1);
 
             upcxx::rpc(team, t->second.first, [](const auto& addr, const auto& buf)
